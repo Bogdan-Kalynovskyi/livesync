@@ -7,7 +7,7 @@ module.exports = function (grunt) {
                 options: {
                     source: "path/to/source/",
                     target: "path/to/destination/",
-                    ignored: undefined //regexp or some zero-value expected
+                    ignored: undefined //regexp or undefined
                 }
             }
         }

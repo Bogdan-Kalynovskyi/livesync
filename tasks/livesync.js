@@ -19,7 +19,11 @@ module.exports = function (grunt) {
 
         var options = this.options();
         if (!options.source || !options.target) {
-            console.log('LiveSync Fatal: Missing options. You have to provide "source" and "target"');
+            console.log('LiveSync Fatal: Missing options. You have to provide "source" and "target"\n');
+            done(false);
+        }
+        if (options.ignore && !(options.ignore instanceof RegExp)) {
+            console.log('LiveSync Fatal: "Ignore" option should be regular expression or undefined\n');
             done(false);
         }
 
