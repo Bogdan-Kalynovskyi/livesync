@@ -38,6 +38,12 @@ module.exports = function (grunt) {
         if (target.substr(0, 2) === './') {
             target = target.substr(2);
         }
+        if (source && source.substr(-1) !== '/') { // things don't work without trailing slash
+            source += '/';
+        }
+        if (target && target.substr(-1) !== '/') {
+            target += '/';
+        }
 
         try {
             if (options.initialRemove) {
