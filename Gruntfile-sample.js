@@ -2,19 +2,19 @@
 module.exports = function (grunt) {
 
     grunt.initConfig({
-        livecopy: {
+        livesync: {
             main: {
                 options: {
                     source: "path/to/source/",
                     target: "path/to/destination/",
-                    ignored: undefined
+                    ignored: undefined //regexp or some zero-value expected
                 }
             }
         }
     });
 
     // Actually load this plugin's task(s).
-    grunt.loadTasks('tasks');
+    grunt.loadTasks('tasks');  //todo load from npm sometime
 
     grunt.registerTask('default', ['livesync']);
 };
