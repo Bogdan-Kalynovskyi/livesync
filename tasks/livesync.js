@@ -38,11 +38,12 @@ module.exports = function (grunt) {
         try {
             if (options.initialRemove) {
                 console.log('Removing ' + target + ' dir...');
+                console.log('PROMT REMOVE ALL');
                 removeDirSync(target);
             }
             if (options.initialCopy) {
                 console.log('Copying ' + source + ' content to ' + target);
-                copyDir('');
+                copyDir();
             }
 
             watcher = chokidar.watch(source, {
@@ -69,19 +70,6 @@ module.exports = function (grunt) {
         }
 
 
-        function removeDir (path) {
-            var destination = target + path.replace(/\\/g, "/").replace(source, '');
-
-            rmdir(destination, function (e) {
-                if (e) {
-                    console.log(e);
-                } else {
-                    console.log('Synced removed dir ' + path);
-                }
-            });
-        }
-
-
         function removeDirSync (target) {
             try {
                 rmdir.sync(target);
@@ -91,9 +79,31 @@ module.exports = function (grunt) {
         }
 
 
+        function removeDir (path) {
+            var destination = target + path.replace(/\\/g, "/").replace(source, '');
+            console.log('detected dir removal ' + path);
+
+            rmdir(destination, function (e) {
+                if (e) {
+                    console.log(e);
+                } else {
+                    console.log('removed dir ' + path);
+                }
+            });
+        }
+
+
         function copyDir (path) {
             var opts = {},
+                destination;
+
+            if (!path) {
+                path = source;
+                destination = target;
+            } else {
                 destination = target + path.replace(/\\/g, "/").replace(source, '');
+                console.log('detected dir creation ' + path);
+            }
 
             if (ignorePattern) {
                 opts = {
@@ -107,7 +117,7 @@ module.exports = function (grunt) {
                 if (e) {
                     console.log(e);
                 } else {
-                    console.log('Synced copied dir ' + path);
+                    console.log('copied dir ' + path);
                 }
             });
         }
@@ -115,12 +125,13 @@ module.exports = function (grunt) {
 
         function removeFile (path) {
             var destination = target + path.replace(/\\/g, "/").replace(source, '');
+            console.log('detected file removal ' + path);
 
             fs.unlink(destination, function (e) {
                 if (e) {
                     console.log(e);
                 }
-                console.log('Synced deleted file ' + path);
+                console.log('deleted file ' + path);
             });
         }
 
@@ -129,6 +140,7 @@ module.exports = function (grunt) {
             var destination = target + path.replace(/\\/g, "/").replace(source, ''),
                 readStream = fs.createReadStream(path),
                 writeStream = fs.createWriteStream(destination);
+            console.log('detected file creaton or change ' + path);
 
             readStream.on('error', function (e) {
                 console.log(e);
@@ -137,7 +149,7 @@ module.exports = function (grunt) {
                 console.log(e);
             });
             writeStream.on('close', function () {
-                console.log('Synced copied file ' + path);
+                console.log('copied file ' + path);
             });
 
             readStream.pipe(writeStream);
