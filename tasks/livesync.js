@@ -63,7 +63,7 @@ module.exports = function (grunt) {
             }
             if (options.initialCopy) {
                 console.log('Copying ' + source + ' content to ' + target);
-                copyDir();
+                copyDir(); //without params
             }
 
             watcher = chokidar.watch(source, {
@@ -80,6 +80,7 @@ module.exports = function (grunt) {
                 .on('unlinkDir', removeDir)
                 .on('error', function(e) {
                     console.log(e);
+                    done(false);
                 });
 
             console.log('Watching ' + source);
@@ -107,7 +108,7 @@ module.exports = function (grunt) {
                 if (e) {
                     console.log(e);
                 } else {
-                    console.log('removed dir ' + path);
+                    console.log('removed dir ' + destination);
                 }
             });
         }
@@ -137,7 +138,7 @@ module.exports = function (grunt) {
                 if (e) {
                     console.log(e);
                 } else {
-                    console.log('copied dir ' + path);
+                    console.log('copied to dir ' + destination);
                 }
             });
         }
@@ -151,7 +152,7 @@ module.exports = function (grunt) {
                 if (e) {
                     console.log(e);
                 }
-                console.log('deleted file ' + path);
+                console.log('removed file ' + destination);
             });
         }
 
@@ -169,12 +170,10 @@ module.exports = function (grunt) {
                 console.log(e);
             });
             writeStream.on('close', function () {
-                console.log('copied file ' + path);
+                console.log('copied to file ' + destination);
             });
 
             readStream.pipe(writeStream);
         }
-
-
     });
 };
