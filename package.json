@@ -1,18 +1,14 @@
 {
   "name": "grunt-livesync",
-  "description": "Watches SOURCE directory for changes and copies them to TARGET directory",
   "version": "0.0.1",
-  "homepage": "https://github.com/mybodya/grunt-contrib-livesync",
+  "description": "Grunt task for directories syncronization",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Please run 'node test/test.js'\" && exit 1"
+  },
   "author": {
-    "name": "Dan",
+    "name": "Bohdan Kalinovsky",
     "email": "mybodya@gmail.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mybodya/grunt-contrib-livesync.git"
-  },
-  "bugs": {
-    "url": "https://github.com/mybodya/grunt-contrib-livesync/issues"
   },
   "licenses": [
     {
@@ -20,25 +16,31 @@
       "url": "https://github.com/mybodya/grunt-contrib-livesync/blob/master/LICENSE-MIT"
     }
   ],
-  "main": "Gruntfile.js",
   "engines": {
     "node": ">=0.10.10"
   },
-  "scripts": {
-   /* "test": "grunt test"*/
-  },
   "devDependencies": {
-    "grunt": "~0.4.1"
+      //nodeunit todo
   },
-  "peerDependencies": {
-    "grunt": "~0.4.1"
+  "dependencies": {
+    "chokidar": "~0.8.1",
+    "grunt": "~0.4.2",
+    "ncp": "~0.4.2",
+    "rimraf": "~2.2.5",
+    "underscore": "~1.5.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mybodya/livesync.git"
   },
   "keywords": [
+    "sync",
+    "watch",
+    "copy",
     "gruntplugin"
   ],
-  "dependencies": {
-    "rimraf": "~2.2.2",
-    "ncp": "~0.4.2",
-    "chokidar": "~0.7.1"
-  }
+  "bugs": {
+    "url": "https://github.com/mybodya/livesync/issues"
+  },
+  "homepage": "https://github.com/mybodya/livesync"
 }
