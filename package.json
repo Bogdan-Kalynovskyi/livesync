@@ -20,7 +20,6 @@
     "node": ">=0.10.10"
   },
   "devDependencies": {
-      //nodeunit todo
   },
   "dependencies": {
     "chokidar": "~0.8.1",
